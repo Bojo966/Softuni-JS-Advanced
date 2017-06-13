@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <ul id="items">
+        <li>first item</li>
+        <li>second item</li>
+        <li>third item</li>
+    </ul>
+    <textarea id="result"></textarea>
+    <br>
+    <button onclick="extractText()">Extract Text</button>
+
+</body>
+<script>
+    function extractText() {
+        let items = document.getElementById('items').children
+        let output = ''
+
+        for (var index = 0; index < items.length; index++) {
+            var element = items[index];
+            output += element.innerHTML + '\n'
+        }
+
+        document.getElementById('result').value = output
+    }
+</script>
+
+
+</html>
