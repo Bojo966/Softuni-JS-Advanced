@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <table border="1" id="customers">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+        <tr>
+            <td>Eve</td>
+            <td>eve@gmail.com</td>
+        </tr>
+        <tr>
+            <td>Nick</td>
+            <td>nick@yahooo.com</td>
+        </tr>
+        <tr>
+            <td>Didi</td>
+            <td>didi@didi.net</td>
+        </tr>
+        <tr>
+            <td>Tedy</td>
+            <td>tedy@tedy.com</td>
+        </tr>
+    </table>
+    Email: <input type="text" name="email" />
+    <button onclick="deleteByEmail()">Delete</button>
+    <div id="result" />
+
+</body>
+<script>
+    function deleteByEmail() {
+        let emailWanted = document.getElementsByName('email')[0].value
+
+        let table = document.getElementById('customers')
+
+        let secondColumn = document.querySelectorAll('table tr td:nth-child(2)')
+
+        for (let tableData of secondColumn) {
+            if (tableData.textContent === emailWanted) {
+                let rowToDelete = tableData.parentNode
+                let list = rowToDelete.parentNode
+                list.removeChild(rowToDelete)
+            } else {
+                let result = document.getElementById('result')
+                result.textContent = 'Not found.'
+            }
+        }
+
+    }
+</script>
+
+</html>
