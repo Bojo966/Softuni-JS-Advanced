@@ -1,0 +1,28 @@
+<input type="text" id="time" style="border:3px solid blue; text-align:center; font-size:2em;" disabled="true" />
+<script>
+    window.onload = function() {
+        countdown(600);
+
+        function countdown(time) {
+            let startTime = time
+            let inputElement = document.getElementById('time')
+            inputElement.value = getOutput()
+            setInterval(decreaseTimer, 1000)
+
+            function decreaseTimer() {
+                startTime--
+                inputElement.value = getOutput()
+            }
+
+            function getOutput() {
+                let minutes = Math.floor(startTime / 60)
+                let seconds = Math.floor(startTime % 60)
+                seconds = ('0' + seconds).slice(-2)
+
+                return `${minutes}:${seconds}`
+            }
+        }
+
+
+    }
+</script>

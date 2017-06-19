@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <th>Product</th>
+                <th>Cost</th>
+            </tr>
+            <tr>
+                <td>Beer</td>
+                <td>2.88</td>
+            </tr>
+            <tr>
+                <td>Fries</td>
+                <td>2.15</td>
+            </tr>
+            <tr>
+                <td>Burger</td>
+                <td>4.59</td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td id="sum"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="sum()">Sum</button>
+
+</body>
+<script>
+    function sum() {
+        let tbodyElement = document.getElementsByTagName('tbody')[0]
+        let tableRows = tbodyElement.getElementsByTagName('tr')
+        let total = 0
+        for (var index = 1; index < tableRows.length - 1; index++) {
+            var row = tableRows[index];
+            let currentValue = Number(row.getElementsByTagName('td')[1].textContent)
+            total += currentValue
+        }
+
+        let resultElement = document.getElementById('sum')
+        resultElement.textContent = total
+    }
+</script>
+
+</html>
