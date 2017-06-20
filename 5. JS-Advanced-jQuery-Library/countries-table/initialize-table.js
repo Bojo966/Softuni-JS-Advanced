@@ -1,3 +1,5 @@
+require('../jquery/dist/jquery');
+
 function initializeTable() {
     function createTableRow() {
         let newCountryName = $('#newCountryText').val()

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Increment Counter</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+    </div>
+    <script>
+        window.onload = function() {
+            increment("#wrapper");
+
+            function increment(selector) {
+                let selection = $(selector)
+                let textAreaElement = getTextAreaElement()
+                let firstButtonElement = getFirstButtonElement()
+                let secondButtonElement = getSecondButtonElement()
+                let unorderdListElement = getUnorderedListElement()
+
+                selection.append(textAreaElement)
+                selection.append(firstButtonElement)
+                selection.append(secondButtonElement)
+                selection.append(unorderdListElement)
+
+                function getFirstButtonElement() {
+                    let buttonElement = $('<button>')
+                    buttonElement.addClass('btn')
+                    buttonElement.attr('id', 'incrementBtn')
+                    buttonElement.text('Increment')
+                    buttonElement.click(incrementValue)
+
+                    return buttonElement
+                }
+
+                function getSecondButtonElement() {
+                    let buttonElement = $('<button>')
+                    buttonElement.addClass('btn')
+                    buttonElement.attr('id', 'addBtn')
+                    buttonElement.text('Add')
+                    buttonElement.click(add)
+
+                    return buttonElement
+                }
+
+                function getUnorderedListElement() {
+                    let ulElement = $('<ul>')
+                    ulElement.addClass('results')
+
+                    return ulElement
+                }
+
+                function getTextAreaElement() {
+                    let textAreaElement = $('<textarea>')
+                    textAreaElement.addClass('counter')
+                    textAreaElement.val(0)
+                    textAreaElement.attr('disabled', 'disabled')
+                    return textAreaElement
+                }
+
+                function incrementValue() {
+                    let inputValue = $('.counter').val()
+                    inputValue = Number(inputValue)
+                    $('.counter').val(inputValue + 1)
+                }
+
+                function add() {
+                    let inputValue = $('.counter').val()
+                    let ulElement = $('.results')
+                    let listItemElement = $('<li>')
+                    listItemElement.text(inputValue)
+                    ulElement.append(listItemElement)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
