@@ -1,30 +1,23 @@
 function attachEvents() {
     let selectedItems = []
-    let list = $('#items')[0]
-    let listItems = list.children
-    let shown = false
+    $('#items li').on('click', clickedElement)
+    $('#showTownsButton').on('click', showSelected)
 
-    for (var index = 0; index < listItems.length; index++) {
-        var element = listItems[index];
-        $(element).click(clickedElement)
-    }
-
-    $('#showTownsButton').click(showSelected)
-
-    function clickedElement(event) {
+    function clickedElement() {
         let clickedListItem = $(this)
         let clickedElementText = clickedListItem.text()
         let clickedElementColor = clickedListItem.css('background-color')
-        if (clickedListItem.css('background-color') === 'rgba(0, 0, 0, 0)' ||
-            clickedListItem.css('background-color') === 'rgb(255, 255, 255)') {
+        if (!clickedListItem.attr('data-selected')) {
             selectedItems.push(clickedElementText)
+            clickedListItem.attr('data-selected', 'true')
             clickedListItem.css('background-color', '#DDD')
         } else {
+            clickedListItem.removeAttr('data-selected')
             delete selectedItems[selectedItems.indexOf(clickedListItem.text())]
             clickedListItem.css('background-color', '#FFF')
         }
 
-        selectedItems = selectedItems.filter(function(value, index, arrray) {
+        selectedItems = selectedItems.filter(function(value, index, array) {
             if (value === undefined) {
                 return false
             } else {
@@ -38,8 +31,8 @@ function attachEvents() {
     }
 
     function showSelected() {
-        let selectedTownsElement = $('#selectedTowns')[0]
-        selectedTownsElement.textContent = `Selected towns: ${selectedItems.join(', ')}`
+        let selectedTownsElement = $('#selectedTowns')
+        selectedTownsElement.text(`Selected towns: ${selectedItems.join(', ')}`)
         shown = true
     }
 }

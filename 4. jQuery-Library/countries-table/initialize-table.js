@@ -1,5 +1,3 @@
-require('../jquery/dist/jquery');
-
 function initializeTable() {
     function createTableRow() {
         let newCountryName = $('#newCountryText').val()
@@ -35,11 +33,8 @@ function initializeTable() {
         newTableRow.append(newCountryNameTd)
         newTableRow.append(newCapitalNameTd)
         newTableRow.append(actionTd)
-        newTableRow.css('display', 'none')
 
-        let table = $('#countriesTable').append(newTableRow)
-
-        newTableRow.fadeIn()
+        newTableRow.insertAfter($($('tr')[1]))
     }
 
     function moveUp(event) {
@@ -56,7 +51,7 @@ function initializeTable() {
 
     function deleteRow(event) {
         let row = $(this).parent().parent()
-        row.detach()
+        row.remove()
     }
 
     let linkElement = $('#createLink')
