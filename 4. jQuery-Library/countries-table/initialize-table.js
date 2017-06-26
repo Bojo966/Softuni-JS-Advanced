@@ -1,59 +1,69 @@
 function initializeTable() {
-    function createTableRow() {
-        let newCountryName = $('#newCountryText').val()
-        let newCapitalName = $('#newCapitalText').val()
+    $('#createLink').click(create);
+    addCountryToTable("Bulgaria", "Sofia");
+    addCountryToTable("Germany", "Berlin");
+    addCountryToTable("Russia", "Moscow");
+    changeLinks();
 
-        let newCountryNameTd = $('<td>')
-        newCountryNameTd.text(newCountryName)
+    function addCountryToTable(country, capital) {
+        let row = ($('<tr>')
+            .append($('<td>').text(country))
+            .append($('<td>').text(capital))
+            .append($('<td>')
+                .append($("<a href=#'>[Up]</a>").click(moveUp))
+                .append($("<a href=#'>[Down]</a>").click(moveDown))
+                .append($("<a href=#'>[Delete]</a>").click(deleteRow))));
 
-        let newCapitalNameTd = $('<td>')
-        newCapitalNameTd.text(newCapitalName)
 
-        let upAnchor = $('<a>')
-        upAnchor.attr('href', '#')
-        upAnchor.text('[Up]')
-        upAnchor.click(moveUp)
+        $('#countriesTable').append(row);
 
-        let downAnchor = $('<a>')
-        downAnchor.attr('href', '#')
-        downAnchor.text('[Down]')
-        downAnchor.click(moveDown)
-
-        let deleteAnchor = $('<a>')
-        deleteAnchor.attr('href', '#')
-        deleteAnchor.text('[Delete]')
-        deleteAnchor.click(deleteRow)
-
-        let actionTd = $('<td>')
-        $(actionTd).append(upAnchor)
-        $(actionTd).append(downAnchor)
-        $(actionTd).append(deleteAnchor)
-
-        let newTableRow = $('<tr>')
-        newTableRow.append(newCountryNameTd)
-        newTableRow.append(newCapitalNameTd)
-        newTableRow.append(actionTd)
-
-        newTableRow.insertAfter($($('tr')[1]))
     }
 
-    function moveUp(event) {
-        let row = $(this).parent().parent()
-        let previousRow = $(row).prev()
-        previousRow.insertAfter(row)
+    function create() {
+        let country = $('#newCountryText').val();
+        let capital = $('#newCapitalText').val();
+        addCountryToTable(country, capital);
+        $('#newCountryText').val('');
+        $('#newCapitalText').val('');
+        changeLinks();
+    };
+
+    function moveUp() {
+        let row = $(this).parent().parent();
+        row.fadeOut(function() {
+            row.insertBefore(row.prev());
+            row.fadeIn();
+            changeLinks();
+        });
     }
 
-    function moveDown(event) {
-        let row = $(this).parent().parent()
-        let nextRow = row.next()
-        nextRow.insertBefore(row)
+    function moveDown() {
+        let row = $(this).parent().parent();
+        row.fadeOut(function() {
+            row.insertAfter(row.next());
+            row.fadeIn();
+            changeLinks();
+        });
+
     }
 
-    function deleteRow(event) {
-        let row = $(this).parent().parent()
-        row.remove()
+    function deleteRow() {
+        let row = $(this).parent().parent();
+        row.fadeOut(function() {
+            row.remove();
+            changeLinks();
+        });
     }
 
-    let linkElement = $('#createLink')
-    linkElement.click(createTableRow)
+    function changeLinks() {
+        $('#countriesTable a').css('display', 'inline');
+
+        let tableRows = $('#countriesTable tr');
+        $(tableRows[2]).find("a:contains('Up')")
+            .css('display', 'none');
+
+        $(tableRows[tableRows.length - 1]).find("a:contains('Down')")
+            .css('display', 'none');
+
+    }
 }
