@@ -1,12 +1,12 @@
 function notify(message) {
     let notificationElement = document.getElementById('notification')
     notificationElement.textContent = message
-    notificationElement.style.display = 'inline-block'
+    notificationElement.style.display = 'block'
 
-    let oneTimeInterval = setInterval(hideMessage, 2000)
+    let oneTimeInterval = setTimeout(hideMessage, 2000)
 
     function hideMessage() {
-        clearInterval(oneTimeInterval)
+        clearTimeout(oneTimeInterval)
         notificationElement.style.display = 'none'
     }
 }
