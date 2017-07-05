@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="sum.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</head>
+
+<body onload="test()">
+    <input type="text" id="num1" />
+    <input type="text" id="num2" />
+    <input type="text" id="result" readonly />
+    <br>
+    <button id="sumButton">
+    Sum</button>
+    <button id="subtractButton">
+    Subtract</button>
+</body>
+<script>
+    function test() {
+        let obj = objectCompositor();
+
+        obj.init("#num1", "#num2", '#result');
+        let num1 = $('#num1');
+        let num2 = $('#num2');
+        let res = $('#result');
+        num1.val(5);
+        num2.val(3);
+        obj.add();
+    }
+
+    function objectCompositor() {
+        return {
+            init: function(selector1, selector2, resultSelector) {
+                this.firstNumber = $(selector1)
+                this.secondNumber = $(selector2)
+                this.result = $(resultSelector)
+            },
+            add: function() {
+                this.result.val(Number(this.firstNumber.val()) + Number(this.secondNumber.val()))
+            },
+            subtract: function() {
+                this.result.val(Number(this.firstNumber.val()) - Number(this.secondNumber.val()))
+            }
+        }
+    }
+</script>
+
+</html>
